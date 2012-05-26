@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<application xmlns="http://ns.adobe.com/air/application/1.0"> 
+<application xmlns="http://ns.adobe.com/air/application/2.0"> 
     <id>com.naosim.intervallauncher</id> 
     <version>0.1</version> 
-    <filename>IntervalLauncher</filename> 
+    <filename>IntervalLauncher</filename>
     <initialWindow> 
         <content>src/index.html</content> 
         <visible>true</visible> 
         <width>400</width> 
         <height>200</height> 
-    </initialWindow> 
+    </initialWindow>
+    <!--<supportedProfiles>extendedDesktop desktop</supportedProfiles>-->
+    <supportedProfiles>extendedDesktop</supportedProfiles>
 </application>
