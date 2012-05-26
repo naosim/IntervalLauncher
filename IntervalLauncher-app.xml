@@ -6,8 +6,8 @@
     <initialWindow> 
         <content>src/index.html</content> 
         <visible>true</visible> 
-        <width>400</width> 
-        <height>200</height> 
+        <width>360</width> 
+        <height>360</height> 
     </initialWindow>
     <!--<supportedProfiles>extendedDesktop desktop</supportedProfiles>-->
     <supportedProfiles>extendedDesktop</supportedProfiles>

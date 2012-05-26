@@ -4,12 +4,8 @@
  * 起動ボタンが押された
  */
 var clickLaunchButton = function() {
-	air.trace("Hello World");
-	
-	var path = getPath(this.parentElement);
-	air.trace("path: " + path);
+	var path = getPath(this.parentElement.parentElement);
 	launch(path);
-	
 };
 
 /**
@@ -17,7 +13,6 @@ var clickLaunchButton = function() {
  * @param liElm liタグの要素
  */
 var getPath = function(liElm) {
-	air.trace("liElm: " + liElm);
 	return liElm.getElementsByClassName('pathBox')[0].value.replace(/^\s+|\s+$/g, "");
 };
 
@@ -33,6 +28,8 @@ var launch = function(path) {
 		alert("goodgood");
 	}
 	*/
+	
+	air.trace("path: " + path);
 	
 	var nativeProcessStartupInfo = new air.NativeProcessStartupInfo(); 
 	var file = new air.File(path);
