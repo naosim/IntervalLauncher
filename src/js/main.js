@@ -1,19 +1,25 @@
+// ADOBE AIRを触る部分の処理
 var dev = {};
+
+/**
+ * 設定データの取得
+ */
 dev.getLocalData = function() {
-	if(!isAIR) {
-		return null;
-	}
 	return air.SharedObject.getLocal("data").data.data;
 };
+
+/**
+ * 設定データの保存
+ */
 dev.setLocalData = function(json) {
-	if(!isAIR) {
-		return null;
-	}
-	
 	var so = air.SharedObject.getLocal("data");
 	so.data.data = json;
 	so.flush();
 };
+
+/**
+ * アプリケーションの起動
+ */
 dev.launch = function(path) {
 	dev.log("path: " + path);
 	
@@ -21,10 +27,12 @@ dev.launch = function(path) {
 	var file = new air.File(path);
 	file.openWithDefaultApplication();
 };
+
+/**
+ * ログ出力
+ */
 dev.log = function(str) {
-	if(isAIR) {
 		air.trace(str);
-	}
 };
 
 // デバッグ用モック
@@ -39,6 +47,7 @@ var validAIR = function() {
 };
 
 if(!validAIR()) {
+	// chrome用に潰す
 	dev.getLocalData = function(){return null};
 	dev.setLocalData = function(){};
 	dev.launch = function(){};
@@ -61,9 +70,11 @@ var getPath = function(liElm) {
 	return liElm.getElementsByClassName('pathBox')[0].value.replace(/^\s+|\s+$/g, "");
 };
 
+/**
+ * ロード完了イベント
+ */
 window.onload = function() {
-	
-	// ボタンの設定
+	// 起動ボタンの設定
 	var launchButtons = document.getElementsByClassName('launchButton');
 	for(var i = 0; i < launchButtons.length; i++) {
 		var button = launchButtons[i];
@@ -92,7 +103,7 @@ window.onload = function() {
 };
 
 /**
- * 保存
+ * 保存ボタンタッチ
  */
 var clickSave = function() {
 	dev.log("clickSave");
