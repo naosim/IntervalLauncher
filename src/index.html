@@ -6,7 +6,14 @@
 		<title>Hello World</title>
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
-			.pathBox {height:28px;}
+			.pathBox {
+				height: 28px;
+			}
+			.intervalBox {
+				width: 64px;
+				height: 28px;
+			}
+
 		</style>
 		<link href="css/bootstrap-responsive.css" rel="stylesheet">
 		<script src="js/jquery.min.js"></script>
@@ -22,17 +29,16 @@
 					<span class="brand">Interval Launcher</span>
 					<!--
 					<div class="nav-collapse">
-						<ul class="nav">
-							<li>
-								<a href="#">Import</a>
-							</li>
-							<li>
-								<a href="#">Export</a>
-							</li>
-						</ul>
+					<ul class="nav">
+					<li>
+					<a href="#">Import</a>
+					</li>
+					<li>
+					<a href="#">Export</a>
+					</li>
+					</ul>
 					</div>
 					-->
-					
 				</div>
 			</div>
 		</div>
@@ -41,13 +47,14 @@
 				<div class="span2">
 					このアプリはほげほげです。
 				</div>
-				
-				
 				<div class="span10">
 					<table class="table table-bordered table-condensed">
 						<thead>
 							<tr>
-								<th class="blue header">#</th><th class="blue header">ファイルパス</th><th class="blue header">起動</th>
+								<th class="blue header">#</th>
+								<th class="blue header">ファイルパス</th>
+								<th class="blue header">間隔[分]</th>
+								<th class="blue header">コントロール</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -61,12 +68,25 @@
 									</div>
 								</div></td>
 								<td>
-								<button class="launchButton btn">
+								<div class="clearfix">
+									<div class="input">
+										<input class="intervalBox xlarge" id="xlInput"
+										name="xlInput" type="number" pattern="^[0-9]+$" />
+									</div>
+								</div></td>
+								<td>
+								<button class="startButton btn disabled">
+									スタート
+								</button>
+								<button class="stopButton btn disabled">
+									ストップ
+								</button>
+								<button class="launchButton btn disabled">
 									起動
 								</button></td>
 							</tr>
 							<tr>
-								<td>2</td>
+								<td>1</td>
 								<td>
 								<div class="clearfix">
 									<div class="input">
@@ -75,12 +95,25 @@
 									</div>
 								</div></td>
 								<td>
-								<button class="launchButton btn">
+								<div class="clearfix">
+									<div class="input">
+										<input class="intervalBox xlarge" id="xlInput"
+										name="xlInput" type="number" pattern="^[0-9]+$" />
+									</div>
+								</div></td>
+								<td>
+								<button class="startButton btn disabled">
+									スタート
+								</button>
+								<button class="stopButton btn disabled">
+									ストップ
+								</button>
+								<button class="launchButton btn disabled">
 									起動
 								</button></td>
 							</tr>
 							<tr>
-								<td>3</td>
+								<td>1</td>
 								<td>
 								<div class="clearfix">
 									<div class="input">
@@ -89,12 +122,25 @@
 									</div>
 								</div></td>
 								<td>
-								<button class="launchButton btn">
+								<div class="clearfix">
+									<div class="input">
+										<input class="intervalBox xlarge" id="xlInput"
+										name="xlInput" type="number" pattern="^[0-9]+$" />
+									</div>
+								</div></td>
+								<td>
+								<button class="startButton btn disabled">
+									スタート
+								</button>
+								<button class="stopButton btn disabled">
+									ストップ
+								</button>
+								<button class="launchButton btn disabled">
 									起動
 								</button></td>
 							</tr>
 							<tr>
-								<td>4</td>
+								<td>1</td>
 								<td>
 								<div class="clearfix">
 									<div class="input">
@@ -103,12 +149,25 @@
 									</div>
 								</div></td>
 								<td>
-								<button class="launchButton btn">
+								<div class="clearfix">
+									<div class="input">
+										<input class="intervalBox xlarge" id="xlInput"
+										name="xlInput" type="number" pattern="^[0-9]+$" />
+									</div>
+								</div></td>
+								<td>
+								<button class="startButton btn disabled">
+									スタート
+								</button>
+								<button class="stopButton btn disabled">
+									ストップ
+								</button>
+								<button class="launchButton btn disabled">
 									起動
 								</button></td>
 							</tr>
 							<tr>
-								<td>5</td>
+								<td>1</td>
 								<td>
 								<div class="clearfix">
 									<div class="input">
@@ -117,16 +176,28 @@
 									</div>
 								</div></td>
 								<td>
-								<button class="launchButton btn">
+								<div class="clearfix">
+									<div class="input">
+										<input class="intervalBox xlarge" id="xlInput"
+										name="xlInput" type="number" pattern="^[0-9]+$" />
+									</div>
+								</div></td>
+								<td>
+								<button class="startButton btn disabled">
+									スタート
+								</button>
+								<button class="stopButton btn disabled">
+									ストップ
+								</button>
+								<button class="launchButton btn disabled">
 									起動
 								</button></td>
 							</tr>
 						</tbody>
 					</table>
-					
 					<button class="saveButton btn">
-									保存
-								</button>
+						保存
+					</button>
 				</div>
 			</div>
 		</div>
