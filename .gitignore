@@ -1,1 +1,6 @@
 .project
+.DS_Store
+
+sampleCert.pfx
+
+HelloWorld.air
