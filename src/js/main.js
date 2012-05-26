@@ -22,12 +22,17 @@ var getPath = function(liElm) {
 };
 
 var launch = function(path) {
+	/*
 	if(!air.NativeProcess.isSupported) {
 		air.trace("bat bat");
+		alert("batbat");
+	
 		return;
 	} else {
 		air.trace("good good");
+		alert("goodgood");
 	}
+	*/
 	
 	var nativeProcessStartupInfo = new air.NativeProcessStartupInfo(); 
 	var file = new air.File(path);
@@ -44,7 +49,7 @@ var launch = function(path) {
     // air.trace("Got: ", data);
 // };
 // process.addEventListener(air.ProgressEvent.STANDARD_OUTPUT_DATA, onOutputData); 
-	process.start(nativeProcessStartupInfo); 
+	// process.start(nativeProcessStartupInfo); 
 
 };
 
