@@ -33,7 +33,7 @@ adt -package -storetype pkcs12 -keystore sampleCert.pfx IntervalLauncher.air Int
 * UIがいい感じ (BootstrapのUIにする)
 
 ==今ここ==
-
+* chromeだけでもある程度テストできるようにする(リファクタ)
 * 次の日もパスを入れ直さなくてOK (保存ボタンを押すと、パスの状態を保存できる)
 * 複数プロジェクトで切り替えれる (設定状態をImport, Exportできる)
 * CI環境完成 (定期的に実行できる)
