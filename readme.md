@@ -28,13 +28,13 @@ adt -package -storetype pkcs12 -keystore sampleCert.pfx IntervalLauncher.air Int
 →IntervalLauncher.airを公開
 
 ##バックログ的な何か。
-* ランチャーの基本 (パスを指定して、ボタンを押すと、アプリを起動できる)
+* ランチャーの基本動作 (パスを指定して、ボタンを押すと、アプリを起動できる)
 
 ==↑今これやってます。==
 
 * トリガは手動だけどCIが出来る (アプリを５つ登録できる)
+* UIがいい感じ (BootstrapのUIにする)
 * 次の日もパスを入れ直さなくてOK (保存ボタンを押すと、パスの状態を保存できる)
-* UIがいい感じ (twitter boot camp  のUIで操作できる)
 * 複数プロジェクトで切り替えれる (設定状態をImport, Exportできる)
 * CI環境完成 (定期的に実行できる)
 * アプリ登録が簡単にできる (アプリをD&Dで登録できる)

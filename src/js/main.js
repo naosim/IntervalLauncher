@@ -8,7 +8,7 @@ var clickLaunchButton = function() {
 	
 	var path = getPath(this.parentElement);
 	air.trace("path: " + path);
-	launch();
+	launch(path);
 	
 };
 
@@ -22,20 +22,29 @@ var getPath = function(liElm) {
 };
 
 var launch = function(path) {
-var nativeProcessStartupInfo = new air.NativeProcessStartupInfo(); 
-var file = air.File.applicationDirectory.resolvePath("test.exe"); 
-nativeProcessStartupInfo.executable = file; 
-var processArgs = new air.Vector["<String>"](); 
-processArgs.push("hello"); 
-nativeProcessStartupInfo.arguments = processArgs; 
-process = new air.NativeProcess();
-var onOutputData = function(event) { 
-    var stdOut = process.standardOutput; 
-    var data = stdOut.readUTFBytes(process.standardOutput.bytesAvailable); 
-    air.trace("Got: ", data); 
-};
-process.addEventListener(air.ProgressEvent.STANDARD_OUTPUT_DATA, onOutputData); 
-process.start(nativeProcessStartupInfo); 
+	if(!air.NativeProcess.isSupported) {
+		air.trace("bat bat");
+		return;
+	} else {
+		air.trace("good good");
+	}
+	
+	var nativeProcessStartupInfo = new air.NativeProcessStartupInfo(); 
+	var file = new air.File(path);
+	file.openWithDefaultApplication();
+	// var file = air.File.applicationDirectory.resolvePath("/Users/nao_pillows/Documents/Aptana Studio 3 Workspace/IntervalLauncher/src/hoge.txt"); 
+	// nativeProcessStartupInfo.executable = file; 
+// var processArgs = new air.Vector["<String>"](); 
+// processArgs.push("hello"); 
+// nativeProcessStartupInfo.arguments = processArgs; 
+	// var process = new air.NativeProcess();
+// var onOutputData = function(event) { 
+    // var stdOut = process.standardOutput; 
+    // var data = stdOut.readUTFBytes(process.standardOutput.bytesAvailable); 
+    // air.trace("Got: ", data);
+// };
+// process.addEventListener(air.ProgressEvent.STANDARD_OUTPUT_DATA, onOutputData); 
+	process.start(nativeProcessStartupInfo); 
 
 };
 
