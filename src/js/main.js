@@ -18,7 +18,7 @@ var clickLaunchButton = function() {
  */
 var getPath = function(liElm) {
 	air.trace("liElm: " + liElm);
-	return liElm.getElementsByClassName('pathBox')[0].value;
+	return liElm.getElementsByClassName('pathBox')[0].value.replace(/^\s+|\s+$/g, "");
 };
 
 var launch = function(path) {
