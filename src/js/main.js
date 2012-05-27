@@ -50,7 +50,7 @@ if(!validAIR()) {
 	// chrome用に潰す
 	dev.getLocalData = function(){return null};
 	dev.setLocalData = function(){};
-	dev.launch = function(){};
+	dev.launch = function(path){dev.log("launch : " + path);};
 	dev.log = function(str){console.log(str)};
 }
 
@@ -69,19 +69,31 @@ var clickLaunchButton = function() {
 var clickStartButton = function() {
 	dev.log("clickStartButton");
 	var cell = this.parentElement.parentElement;
-	cell.isStarted = true;
+	cell.isStarted = !cell.isStarted;
+	cell.nextDate = createNextDate(getInterval(cell));
 	checkCell(cell);
+};
+
+/**
+ * 間隔を取得する[ミリsec]
+ */
+var getInterval = function(cell) {
+	return parseInt(cell.getElementsByClassName('intervalBox')[0].value) * 60 * 1000;
+};
+
+var createNextDate = function(interval) {
+	return new Date().getTime() + interval;
 };
 
 /**
  * 起動ボタンが押された
  */
-var clickStopButton = function() {
-	dev.log("clickStopButton");
-	var cell = this.parentElement.parentElement;
-	cell.isStarted = false;
-	checkCell(cell);
-};
+// var clickStopButton = function() {
+	// dev.log("clickStopButton");
+	// var cell = this.parentElement.parentElement;
+	// cell.isStarted = false;
+	// checkCell(cell);
+// };
 
 /**
  * ファイルパスを取得する
@@ -145,7 +157,7 @@ window.onload = function() {
 	// 起動ボタンの設定
 	// initLaunchButtons();
 	initButtons("startButton", clickStartButton);
-	initButtons("stopButton", clickStopButton);
+	// initButtons("stopButton", clickStopButton);
 	initButtons("launchButton", clickLaunchButton);
 	
 	// 入力エリアの設定
@@ -157,6 +169,11 @@ window.onload = function() {
 	
 	// 保存ボタンの設定
 	initSaveButton();
+	
+	// Cellの状態をチェック
+	checkAllCell();
+	
+	mainLoop();
 };
 
 /**
@@ -186,7 +203,7 @@ var validLaunch = function(path) {
  * 条件：パスがある && 間隔がある && スタートしてない
  */
 var validStart = function(path, interval, isStarted) {
-	return path.length > 0 && interval.length > 0 && !isStarted;
+	return path.length > 0 && interval.length > 0;
 };
 
 /**
@@ -194,40 +211,98 @@ var validStart = function(path, interval, isStarted) {
  * 条件：パスがある && 間隔がある && スタートしている
  */
 var validStop = function(path, interval, isStarted) {
-	return path.length > 0 && interval.length > 0 && isStarted;
+	return isStarted;
+};
+
+var checkAllCell = function() {
+	var trElms = document.getElementsByClassName('cell');
+	for(var i = 0; i < trElms.length; i++) {
+		checkCell(trElms[i]);
+	}
 };
 
 var checkCell = function(cellElm) {
-	var pathBox = document.getElementsByClassName('pathBox')[0];
-	var intervalBox = document.getElementsByClassName('intervalBox')[0];
+	var statusLabel = cellElm.getElementsByClassName('status')[0];
+	
+	var pathBox = cellElm.getElementsByClassName('pathBox')[0];
+	var intervalBox = cellElm.getElementsByClassName('intervalBox')[0];
 	
 	var startButton = cellElm.getElementsByClassName('startButton')[0];
-	var stopButton = cellElm.getElementsByClassName('stopButton')[0];
+	// var stopButton = cellElm.getElementsByClassName('stopButton')[0];
 	var launchButton = cellElm.getElementsByClassName('launchButton')[0];
 	
 	var pathBox = cellElm.getElementsByClassName('pathBox')[0];
 	var intervalBox = cellElm.getElementsByClassName('intervalBox')[0];
 	
 	if(cellElm.isStarted) {
+		// 残り時間
+		var restTime = cellElm.nextDate - new Date().getTime();
+		if(restTime < 0) {
+			launchButton.click();
+			cellElm.nextDate = createNextDate(getInterval(cellElm));
+		}
+		
+		statusLabel.className = "status label label-info";
+		statusLabel.innerHTML = formatTime(restTime);
+		
 		pathBox.readOnly = true;
 		pathBox.className = "pathBox xlarge uneditable-input";
 		
 		intervalBox.readOnly = true;
 		intervalBox.className = "intervalBox xlarge uneditable-input";
+		
+		startButton.innerHTML = "ストップ";
 	} else {
+		statusLabel.className = "status label";
+		statusLabel.innerHTML = "停止中";
+		
 		pathBox.readOnly = false;
 		pathBox.className = "pathBox xlarge";
 		
 		intervalBox.readOnly = false;
-		intervalBox.className = "intervalBox xlarge";
+		intervalBox.className = "intervalBox xlarge input";
+		
+		startButton.innerHTML = "スタート";
 	}
 	
 	updateButton(startButton, 'startButton', validStart(pathBox.value, intervalBox.value, cellElm.isStarted));
-	updateButton(stopButton, 'stopButton', validStop(pathBox.value, intervalBox.value, cellElm.isStarted));
+	// updateButton(stopButton, 'stopButton', validStop(pathBox.value, intervalBox.value, cellElm.isStarted));
 	updateButton(launchButton, 'launchButton', validLaunch(pathBox.value));
 	
 };
 
 var updateButton = function(btn, className, isValid) {
-	isValid ? btn.className = className + ' btn' : btn.className = className + ' btn disabled';
+	btn.disabled = !isValid;
+	btn.className = className + ' btn';
+	if(!isValid) {
+		btn.className += ' disabled';
+	}
+}
+
+/**
+ * 残り時間表示のフォーマッター
+ */
+var formatTime = function(restTime) {
+	if(restTime < 60 * 1000) {
+		// 1分以内
+		return Math.ceil(restTime / 1000) + "秒";
+	} else if(restTime < 60 * 60 * 1000) {
+		// １時間以内
+		return Math.ceil(restTime / 1000 / 60) + "分"; 
+	} else {
+		// 1時間以上
+		return Math.ceil(restTime / 1000 / 60 / 60) + "時間";
+	}
+}
+
+/**
+ * メインループ
+ * 1秒おきに実行される
+ */
+var mainLoop = function() {
+	// dev.log("mainLoop");
+	
+	checkAllCell();
+	
+	window.setTimeout(mainLoop, 1000);
 }
