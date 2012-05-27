@@ -23,9 +23,10 @@ adl IntervalLauncher-app.xml
 adt -certificate -cn SelfSigned 1024-RSA sampleCert.pfx samplePassword
 
 AIR インストールファイルの作成
-adt -package -storetype pkcs12 -keystore sampleCert.pfx IntervalLauncher.air IntervalLauncher-app.xml src
+adt -package -storetype pkcs12 -keystore sampleCert.pfx -target native IntervalLauncher.dmg IntervalLauncher-app.xml src
+※ネイティブインストーラーじゃないとシェルスクリプトとかが動かないらしい。
 
-→IntervalLauncher.airを公開
+→IntervalLauncher.dmgを公開
 
 ##バックログ的な何か。
 * ランチャーの基本動作 (パスを指定して、ボタンを押すと、アプリを起動できる)
